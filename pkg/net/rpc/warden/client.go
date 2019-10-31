@@ -328,9 +328,15 @@ func (c *Client) dial(ctx context.Context, target string, opts ...grpc.DialOptio
 // Target format is scheme://authority/endpoint?query_arg=value
 // example: discovery://default/account.account.service?cluster=shfy01&cluster=shfy02
 func (c *Client) Dial(ctx context.Context, target string, opts ...grpc.DialOption) (conn *grpc.ClientConn, err error) {
-	//opts = append(opts, grpc.WithInsecure())
+	opts = append(opts, grpc.WithInsecure())
 	return c.dial(ctx, target, opts...)
 }
+
+//DialTls creates a client connection support tls.config
+func (c *Client) DialTls(ctx context.Context, target string, opts ...grpc.DialOption) (conn *grpc.ClientConn, err error) {
+	return c.dial(ctx, target, opts...)
+}
+
 
 // DialTLS creates a client connection over tls transport to the given target.
 func (c *Client) DialTLS(ctx context.Context, target string, file string, name string, opts ...grpc.DialOption) (conn *grpc.ClientConn, err error) {
