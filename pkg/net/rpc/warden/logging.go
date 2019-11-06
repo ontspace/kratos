@@ -68,7 +68,7 @@ func logFn(code int, dt time.Duration) func(context.Context, ...log.D) {
 	case code > 0:
 		return log.Warnv
 	}
-	return log.Infov
+	return log.Debugv
 }
 
 // clientLogging warden grpc logging
