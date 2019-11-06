@@ -40,7 +40,7 @@ func (b *RateLimiter) printStats(fullMethod string, limiter limit.Limiter) {
 	now := time.Now().UnixNano()
 	if now-atomic.LoadInt64(&b.logTime) > int64(time.Second*3) {
 		atomic.StoreInt64(&b.logTime, now)
-		log.Info("grpc.bbr path:%s stat:%+v", fullMethod, limiter.(*bbr.BBR).Stat())
+		log.Debug("grpc.bbr path:%s stat:%+v", fullMethod, limiter.(*bbr.BBR).Stat())
 	}
 }
 

@@ -288,6 +288,5 @@ func (p *p2cPicker) printStats() {
 		}
 		stats = append(stats, stat)
 	}
-	log.Info("p2c %s : %+v", p.subConns[0].addr.ServerName, stats)
-	//fmt.Printf("%+v\n", stats)
+	log.Debug("p2c %s : %+v", p.subConns[0].addr.ServerName, stats)
 }

@@ -138,6 +138,10 @@ func Init(conf *Config) {
 	c = conf
 }
 
+// Debug logs a message at the debug log level.
+func Debug(format string, args ...interface{}) {
+	h.Log(context.Background(), _debugLevel, KVString(_log, fmt.Sprintf(format, args...)))
+}
 // Info logs a message at the info log level.
 func Info(format string, args ...interface{}) {
 	h.Log(context.Background(), _infoLevel, KVString(_log, fmt.Sprintf(format, args...)))
@@ -153,6 +157,11 @@ func Error(format string, args ...interface{}) {
 	h.Log(context.Background(), _errorLevel, KVString(_log, fmt.Sprintf(format, args...)))
 }
 
+// Debugc logs a message at the info log level.
+func Debugc(ctx context.Context, format string, args ...interface{}) {
+	h.Log(ctx, _debugLevel, KVString(_log, fmt.Sprintf(format, args...)))
+}
+
 // Infoc logs a message at the info log level.
 func Infoc(ctx context.Context, format string, args ...interface{}) {
 	h.Log(ctx, _infoLevel, KVString(_log, fmt.Sprintf(format, args...)))
@@ -166,6 +175,11 @@ func Errorc(ctx context.Context, format string, args ...interface{}) {
 // Warnc logs a message at the warning log level.
 func Warnc(ctx context.Context, format string, args ...interface{}) {
 	h.Log(ctx, _warnLevel, KVString(_log, fmt.Sprintf(format, args...)))
+}
+
+// Debugv logs a message at the info log level.
+func Debugv(ctx context.Context, args ...D) {
+	h.Log(ctx, _debugLevel, args...)
 }
 
 // Infov logs a message at the info log level.
@@ -196,6 +210,11 @@ func logw(args []interface{}) []D {
 		}
 	}
 	return ds
+}
+
+// Debugw logs a message with some additional context. The variadic key-value pairs are treated as they are in With.
+func Debugw(ctx context.Context, args ...interface{}) {
+	h.Log(ctx, _debugLevel, logw(args)...)
 }
 
 // Infow logs a message with some additional context. The variadic key-value pairs are treated as they are in With.
