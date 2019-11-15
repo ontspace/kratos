@@ -2,8 +2,8 @@ package trace
 
 import (
 	"fmt"
+	"github.com/bilibili/kratos/pkg/log"
 	"net"
-	"os"
 	"sync"
 	"time"
 )
@@ -134,5 +134,5 @@ func (c *connReport) closeConn() error {
 }
 
 func (c *connReport) Errorf(format string, args ...interface{}) {
-	fmt.Fprintf(os.Stderr, format+"\n", args...)
+	log.Error(format+"\n", args...)
 }

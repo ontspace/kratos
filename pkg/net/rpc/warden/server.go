@@ -168,11 +168,11 @@ func parseDSN(rawdsn string) *ServerConfig {
 func NewServer(conf *ServerConfig, opt ...grpc.ServerOption) (s *Server) {
 	if conf == nil {
 		if !flag.Parsed() {
-			fmt.Fprint(os.Stderr, "[warden] please call flag.Parse() before Init warden server, some configure may not effect\n")
+			log.Debug("[warden] please call flag.Parse() before Init warden server, some configure may not effect\n")
 		}
 		conf = parseDSN(_grpcDSN)
 	} else {
-		fmt.Fprintf(os.Stderr, "[warden] config is Deprecated, argument will be ignored. please use -grpc flag or GRPC env to configure warden server.\n")
+		log.Debug("[warden] config is Deprecated, argument will be ignored. please use -grpc flag or GRPC env to configure warden server.\n")
 	}
 	s = new(Server)
 	if err := s.SetConfig(conf); err != nil {
