@@ -3,7 +3,6 @@ package blademaster
 import (
 	"fmt"
 	"net/http/httputil"
-	"os"
 	"runtime"
 
 	"github.com/bilibili/kratos/pkg/log"
@@ -22,7 +21,6 @@ func Recovery() HandlerFunc {
 					rawReq, _ = httputil.DumpRequest(c.Request, false)
 				}
 				pl := fmt.Sprintf("http call panic: %s\n%v\n%s\n", string(rawReq), err, buf)
-				fmt.Fprintf(os.Stderr, pl)
 				log.Error(pl)
 				c.AbortWithStatus(500)
 			}

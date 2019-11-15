@@ -2,10 +2,8 @@ package resolver
 
 import (
 	"context"
-	"fmt"
 	"math/rand"
 	"net/url"
-	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -16,7 +14,7 @@ import (
 	"github.com/bilibili/kratos/pkg/naming"
 	wmeta "github.com/bilibili/kratos/pkg/net/rpc/warden/internal/metadata"
 
-	farm "github.com/dgryski/go-farm"
+	"github.com/dgryski/go-farm"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc/resolver"
 )
@@ -159,7 +157,6 @@ func (r *Resolver) filter(backends []*naming.Instance) (instances []*naming.Inst
 			}
 		}
 		if addr == "" {
-			fmt.Fprintf(os.Stderr, "resolver: app(%s,%s) no valid grpc address(%v) found!", ins.AppID, ins.Hostname, ins.Addrs)
 			log.Warn("resolver: invalid rpc address(%s,%s,%v) found!", ins.AppID, ins.Hostname, ins.Addrs)
 			continue
 		}

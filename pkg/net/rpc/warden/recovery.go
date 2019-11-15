@@ -3,7 +3,6 @@ package warden
 import (
 	"context"
 	"fmt"
-	"os"
 	"runtime"
 
 	"github.com/bilibili/kratos/pkg/ecode"
@@ -27,7 +26,6 @@ func (s *Server) recovery() grpc.UnaryServerInterceptor {
 				}
 				buf = buf[:rs]
 				pl := fmt.Sprintf("grpc server panic: %v\n%v\n%s\n", req, rerr, buf)
-				fmt.Fprintf(os.Stderr, pl)
 				log.Error(pl)
 				err = status.Errorf(codes.Unknown, ecode.ServerErr.Error())
 			}
@@ -50,7 +48,6 @@ func (c *Client) recovery() grpc.UnaryClientInterceptor {
 				}
 				buf = buf[:rs]
 				pl := fmt.Sprintf("grpc client panic: %v\n%v\n%v\n%s\n", req, reply, rerr, buf)
-				fmt.Fprintf(os.Stderr, pl)
 				log.Error(pl)
 				err = ecode.ServerErr
 			}

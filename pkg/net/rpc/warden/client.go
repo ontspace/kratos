@@ -2,9 +2,8 @@ package warden
 
 import (
 	"context"
-	"fmt"
+	"github.com/bilibili/kratos/pkg/log"
 	"net/url"
-	"os"
 	"strconv"
 	"strings"
 	"sync"
@@ -318,7 +317,7 @@ func (c *Client) dial(ctx context.Context, target string, opts ...grpc.DialOptio
 		target = u.String()
 	}
 	if conn, err = grpc.DialContext(ctx, target, dialOptions...); err != nil {
-		fmt.Fprintf(os.Stderr, "warden client: dial %s error %v!", target, err)
+		log.Error("warden client: dial %s error %v!", target, err)
 	}
 	err = errors.WithStack(err)
 	return
