@@ -2,7 +2,6 @@ package trace
 
 import (
 	"fmt"
-	"github.com/bilibili/kratos/pkg/log"
 	"net"
 	"sync"
 	"time"
