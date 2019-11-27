@@ -13,7 +13,6 @@ import (
 	"github.com/bilibili/kratos/pkg/conf/dsn"
 	"github.com/bilibili/kratos/pkg/log"
 	nmd "github.com/bilibili/kratos/pkg/net/metadata"
-	"github.com/bilibili/kratos/pkg/net/rpc/warden/ratelimiter"
 	"github.com/bilibili/kratos/pkg/net/trace"
 	xtime "github.com/bilibili/kratos/pkg/time"
 
@@ -188,7 +187,6 @@ func NewServer(conf *ServerConfig, opt ...grpc.ServerOption) (s *Server) {
 	opt = append(opt, keepParam, grpc.UnaryInterceptor(s.interceptor))
 	s.server = grpc.NewServer(opt...)
 	s.Use(s.recovery(), s.handle(), serverLogging(conf.LogFlag), s.stats(), s.validate())
-	s.Use(ratelimiter.New(nil).Limit())
 	return
 }
 
