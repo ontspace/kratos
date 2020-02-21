@@ -12,7 +12,7 @@ import (
 	"github.com/bilibili/kratos/pkg/log"
 	"github.com/bilibili/kratos/pkg/net/netutil/breaker"
 	"github.com/bilibili/kratos/pkg/net/trace"
-
+	"github.com/go-sql-driver/mysql"
 	"github.com/pkg/errors"
 )
 
@@ -660,17 +660,11 @@ func (tx *Tx) Prepare(query string) (*Stmt, error) {
 
 // parseDSNAddr parse dsn name and return addr.
 func parseDSNAddr(dsn string) (addr string) {
-	if dsn == "" {
-		return
+	cfg, err := mysql.ParseDSN(dsn)
+	if err != nil {
+		return ""
 	}
-	part0 := strings.Split(dsn, "@")
-	if len(part0) > 1 {
-		part1 := strings.Split(part0[1], "?")
-		if len(part1) > 0 {
-			addr = part1[0]
-		}
-	}
-	return
+	return cfg.Addr
 }
 
 func slowLog(statement string, now time.Time) {
